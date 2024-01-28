@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -14,9 +15,9 @@ namespace DAL.Migrations
                 name: "tbl_Avl_Jobs",
                 columns: table => new
                 {
-                    Job_ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Job_Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Job_ID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Job_Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

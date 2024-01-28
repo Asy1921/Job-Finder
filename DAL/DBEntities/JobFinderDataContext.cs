@@ -17,7 +17,7 @@ public class JobFinderDataContext : DbContext
         if (!optionsBuilder.IsConfigured)
         {
 
-            optionsBuilder.UseSqlServer(ConnStr.Get());
+            optionsBuilder.UseNpgsql(ConnStr.Get());
 
         }
     }
