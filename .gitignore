@@ -13,6 +13,8 @@ InstallationCommands
 
 #Conn String
 DAL/ConnString.cs
+*.vscode
+launch.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

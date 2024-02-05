@@ -11,4 +11,6 @@ public class tbl_Avl_Jobs
     public int AvailablePositions { get; set; }
     public int FilledPositions { get; set; }
     public bool JobOpen { get; set; }
+    public string Domain { get; set; }
+    public string SkillsRequired { get; set; }
 }
