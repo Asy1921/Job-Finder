@@ -12,7 +12,7 @@ public class BusinessOperations
             Job_ID = NewJob.Job_ID,
             Job_Name = NewJob.Job_Name,
             JobOpen = NewJob.JobOpen,
-            UserID = NewJob.UserID,
+            CreatorUserID = NewJob.CreatorUserID,
             AvailablePositions = NewJob.AvailablePositions,
             FilledPositions = NewJob.FilledPositions
         });
@@ -32,7 +32,7 @@ public class BusinessOperations
                     Job_ID = avl_Jobs.Job_ID,
                     Job_Name = avl_Jobs.Job_Name,
                     JobOpen = avl_Jobs.JobOpen,
-                    UserID = avl_Jobs.UserID,
+                    CreatorUserID = avl_Jobs.CreatorUserID,
                     AvailablePositions = avl_Jobs.AvailablePositions,
                     FilledPositions = avl_Jobs.FilledPositions
                 };

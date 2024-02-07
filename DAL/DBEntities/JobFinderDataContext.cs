@@ -22,4 +22,5 @@ public class JobFinderDataContext : DbContext
         }
     }
     public DbSet<tbl_Avl_Jobs> tbl_Avl_Jobs { get; set; }
+    public DbSet<tbl_Users> tbl_Users { get; set; }
 }

@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(JobFinderDataContext))]
-    partial class JobFinderDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240207173729_AddedTblUsers")]
+    partial class AddedTblUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,41 +24,6 @@ namespace DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("DAL.tbl_Avl_Jobs", b =>
-                {
-                    b.Property<string>("Job_ID")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AvailablePositions")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("CreatorUserID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Domain")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("FilledPositions")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("JobOpen")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Job_Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("SkillsRequired")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Job_ID");
-
-                    b.ToTable("tbl_Avl_Jobs");
-                });
 
             modelBuilder.Entity("DAL.tbl_Users", b =>
                 {
