@@ -10,10 +10,12 @@ public class tbl_Avl_Jobs
     public string CreatorUserID { get; set; }
     public string Job_Name { get; set; }
     public string Coy_ID { get; set; }
+    public string Job_Description { get; set; }
     public int AvailablePositions { get; set; }
     public int FilledPositions { get; set; }
     public bool JobOpen { get; set; }
     public string Domain { get; set; }
+    public int YearsOfExperienceRequired { get; set; }
     public string SkillsRequired { get; set; }
 
     [ForeignKey("Coy_ID")]
