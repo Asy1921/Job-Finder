@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL;
 
-public class tbl_Avl_Jobs
+public class tbl_Avl_Job
 {
     [Key]
     public string Job_ID { get; set; }
@@ -16,8 +16,8 @@ public class tbl_Avl_Jobs
     public bool JobOpen { get; set; }
     public string Domain { get; set; }
     public int YearsOfExperienceRequired { get; set; }
-    public string SkillsRequired { get; set; }
+
 
     [ForeignKey("Coy_ID")]
-    public tbl_Companies Company { get; set; }
+    public tbl_Companie Company { get; set; }
 }

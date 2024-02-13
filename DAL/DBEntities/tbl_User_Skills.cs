@@ -4,7 +4,7 @@ using System;
 
 namespace DAL;
 
-public class tbl_User_Skills
+public class tbl_User_Skill
 {
     [Key]
     public string User_ID { get; set; }
@@ -14,6 +14,6 @@ public class tbl_User_Skills
 
 
     [ForeignKey("User_ID")]
-    public tbl_Users Users { get; set; }
+    public tbl_User Users { get; set; }
 
 }

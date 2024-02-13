@@ -8,4 +8,10 @@ public class Job
     public int AvailablePositions { get; set; } = 0;
     public int FilledPositions { get; set; } = 0;
     public bool JobOpen { get; set; } = false;
+    public string Domain { get; set; } = "";
+    public string Coy_ID { get; set; } = "";
+    public string Job_Description { get; set; } = "";
+    public int YearsOfExperienceRequired { get; set; } = 0;
+
+
 }

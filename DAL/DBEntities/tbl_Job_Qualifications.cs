@@ -4,7 +4,7 @@ using System;
 
 namespace DAL;
 
-public class tbl_Job_Qualifications
+public class tbl_Job_Qualification
 {
     [Key]
     public string Job_ID { get; set; }
@@ -14,6 +14,6 @@ public class tbl_Job_Qualifications
 
 
     [ForeignKey("Job_ID")]
-    public tbl_Avl_Jobs Job { get; set; }
+    public tbl_Avl_Job Job { get; set; }
 
 }

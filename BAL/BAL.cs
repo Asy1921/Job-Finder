@@ -7,15 +7,21 @@ public class BusinessOperations
 {
     public string AddNewJob(Job NewJob)
     {
-        string status = new DBOperations().AddNewJob(new tbl_Avl_Jobs()
+        DBOperations Dbo = new();
+        string status = Dbo.AddNewJob(new tbl_Avl_Job()
         {
             Job_ID = NewJob.Job_ID,
             Job_Name = NewJob.Job_Name,
             JobOpen = NewJob.JobOpen,
             CreatorUserID = NewJob.CreatorUserID,
             AvailablePositions = NewJob.AvailablePositions,
-            FilledPositions = NewJob.FilledPositions
-        });
+            FilledPositions = NewJob.FilledPositions,
+            Domain = NewJob.Domain,
+            Coy_ID = NewJob.Coy_ID,
+            Job_Description = NewJob.Job_Description,
+            YearsOfExperienceRequired = NewJob.YearsOfExperienceRequired
+
+        }, new List<tbl_Job_Qualification>(), new List<tbl_Job_Skill>());
         return status;
     }
     public (List<Job>, string) GetAllJobs()
@@ -24,8 +30,8 @@ public class BusinessOperations
         string status = "";
         try
         {
-            (List<tbl_Avl_Jobs> JobDB, status) = new DBOperations().GetAllJobs();
-            foreach (tbl_Avl_Jobs avl_Jobs in JobDB)
+            (List<tbl_Avl_Job> JobDB, status) = new DBOperations().GetAllJobs();
+            foreach (tbl_Avl_Job avl_Jobs in JobDB)
             {
                 Job Job = new Job()
                 {
@@ -34,7 +40,11 @@ public class BusinessOperations
                     JobOpen = avl_Jobs.JobOpen,
                     CreatorUserID = avl_Jobs.CreatorUserID,
                     AvailablePositions = avl_Jobs.AvailablePositions,
-                    FilledPositions = avl_Jobs.FilledPositions
+                    FilledPositions = avl_Jobs.FilledPositions,
+                    Domain = avl_Jobs.Domain,
+                    Coy_ID = avl_Jobs.Coy_ID,
+                    Job_Description = avl_Jobs.Job_Description,
+                    YearsOfExperienceRequired = avl_Jobs.YearsOfExperienceRequired
                 };
                 ReturnData.Add(Job);
             }

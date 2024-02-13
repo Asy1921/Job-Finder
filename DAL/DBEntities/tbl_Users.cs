@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL;
 
-public class tbl_Users
+public class tbl_User
 {
     [Key]
     public string User_ID { get; set; }

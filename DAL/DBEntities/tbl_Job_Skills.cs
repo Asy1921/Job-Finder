@@ -15,6 +15,6 @@ public class tbl_Job_Skill
 
 
     [ForeignKey("Job_ID")]
-    public tbl_Avl_Jobs Job { get; set; }
+    public tbl_Avl_Job Job { get; set; }
 
 }

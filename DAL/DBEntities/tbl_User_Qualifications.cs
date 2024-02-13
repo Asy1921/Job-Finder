@@ -16,6 +16,6 @@ public class tbl_User_Qualification
 
 
     [ForeignKey("User_ID")]
-    public tbl_Users Users { get; set; }
+    public tbl_User Users { get; set; }
 
 }

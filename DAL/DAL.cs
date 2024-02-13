@@ -6,15 +6,16 @@ public class DBOperations
 {
     JobFinderDataContext context = new JobFinderDataContext();
 
-    public string AddNewJob(tbl_Avl_Jobs newJob)
+    public string AddNewJob(tbl_Avl_Job NewJob, List<tbl_Job_Qualification> Qualifications, List<tbl_Job_Skill> Skills)
     {
         string status = "";
         try
         {
 
-            context.tbl_Avl_Jobs.Add(newJob);
+            context.tbl_Avl_Jobs.Add(NewJob);
             context.SaveChanges();
-            status = $"Added Job:{newJob.Job_Name} successfully";
+            status = $"Added Job:{NewJob.Job_Name} successfully\n";
+            // context.tbl_Qualifications.Add(Qualifications);
         }
         catch (Exception Ex)
         {
@@ -23,10 +24,10 @@ public class DBOperations
         return status;
     }
 
-    public (List<tbl_Avl_Jobs>, string) GetAllJobs()
+    public (List<tbl_Avl_Job>, string) GetAllJobs()
     {
         string status = "";
-        List<tbl_Avl_Jobs> ReturnData = new List<tbl_Avl_Jobs>();
+        List<tbl_Avl_Job> ReturnData = new List<tbl_Avl_Job>();
         try
         {
 
