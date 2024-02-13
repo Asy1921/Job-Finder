@@ -6,9 +6,9 @@ namespace DAL;
 
 public class tbl_User_Skill
 {
-    [Key]
-    public string User_ID { get; set; }
 
+    public string User_ID { get; set; }
+    [Key]
     public string Skill_Name { get; set; }
 
 

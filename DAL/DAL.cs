@@ -15,7 +15,12 @@ public class DBOperations
             context.tbl_Avl_Jobs.Add(NewJob);
             context.SaveChanges();
             status = $"Added Job:{NewJob.Job_Name} successfully\n";
-            // context.tbl_Qualifications.Add(Qualifications);
+            Qualifications = Qualifications.Where(x => context.tbl_Job_Qualifications.Contains(x)).ToList();
+            context.tbl_Job_Qualifications.AddRange(Qualifications);
+            status = $"Added {Qualifications.Count} required qualifications for Job:{NewJob.Job_Name} successfully\n";
+            Skills = Skills.Where(x => context.tbl_Job_Skills.Contains(x)).ToList();
+            context.tbl_Job_Skills.AddRange(Skills);
+            status = $"Added {Skills.Count} required skills for Job:{NewJob.Job_Name} successfully\n";
         }
         catch (Exception Ex)
         {

@@ -4,7 +4,7 @@ using System;
 
 namespace DAL;
 
-public class tbl_Companie
+public class tbl_Company
 {
     [Key]
     public string ID { get; set; }

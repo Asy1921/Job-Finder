@@ -3,6 +3,7 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations
 {
     [DbContext(typeof(JobFinderDataContext))]
-    partial class JobFinderDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240213180235_DeletingIllegalTbls")]
+    partial class DeletingIllegalTbls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -117,44 +120,6 @@ namespace DAL.Migrations
                     b.ToTable("tbl_Job_Applicants");
                 });
 
-            modelBuilder.Entity("DAL.tbl_Job_Qualification", b =>
-                {
-                    b.Property<string>("QualificationRequired")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Job_ID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Required")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("QualificationRequired");
-
-                    b.HasIndex("Job_ID");
-
-                    b.ToTable("tbl_Job_Qualifications");
-                });
-
-            modelBuilder.Entity("DAL.tbl_Job_Skill", b =>
-                {
-                    b.Property<string>("Skill_Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Job_ID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Required")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Skill_Name");
-
-                    b.HasIndex("Job_ID");
-
-                    b.ToTable("tbl_Job_Skills");
-                });
-
             modelBuilder.Entity("DAL.tbl_User", b =>
                 {
                     b.Property<string>("User_ID")
@@ -189,46 +154,6 @@ namespace DAL.Migrations
                     b.ToTable("tbl_Users");
                 });
 
-            modelBuilder.Entity("DAL.tbl_User_Qualification", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Institute")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("User_ID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Name");
-
-                    b.HasIndex("User_ID");
-
-                    b.ToTable("tbl_User_Qualifications");
-                });
-
-            modelBuilder.Entity("DAL.tbl_User_Skill", b =>
-                {
-                    b.Property<string>("Skill_Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("User_ID")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Skill_Name");
-
-                    b.HasIndex("User_ID");
-
-                    b.ToTable("tbl_User_Skills");
-                });
-
             modelBuilder.Entity("DAL.tbl_Avl_Job", b =>
                 {
                     b.HasOne("DAL.tbl_Company", "Company")
@@ -255,50 +180,6 @@ namespace DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("AvailableJobs");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("DAL.tbl_Job_Qualification", b =>
-                {
-                    b.HasOne("DAL.tbl_Avl_Job", "Job")
-                        .WithMany()
-                        .HasForeignKey("Job_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-                });
-
-            modelBuilder.Entity("DAL.tbl_Job_Skill", b =>
-                {
-                    b.HasOne("DAL.tbl_Avl_Job", "Job")
-                        .WithMany()
-                        .HasForeignKey("Job_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-                });
-
-            modelBuilder.Entity("DAL.tbl_User_Qualification", b =>
-                {
-                    b.HasOne("DAL.tbl_User", "Users")
-                        .WithMany()
-                        .HasForeignKey("User_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("DAL.tbl_User_Skill", b =>
-                {
-                    b.HasOne("DAL.tbl_User", "Users")
-                        .WithMany()
-                        .HasForeignKey("User_ID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Users");
                 });

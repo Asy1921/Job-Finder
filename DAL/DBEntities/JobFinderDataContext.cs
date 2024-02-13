@@ -24,7 +24,7 @@ public class JobFinderDataContext : DbContext
     public DbSet<tbl_Avl_Job> tbl_Avl_Jobs { get; set; }
     public DbSet<tbl_User> tbl_Users { get; set; }
     public DbSet<tbl_Job_Applicant> tbl_Job_Applicants { get; set; }
-    public DbSet<tbl_Companie> tbl_Companies { get; set; }
+    public DbSet<tbl_Company> tbl_Companies { get; set; }
     public DbSet<tbl_User_Skill> tbl_User_Skills { get; set; }
     public DbSet<tbl_User_Qualification> tbl_User_Qualifications { get; set; }
     public DbSet<tbl_Job_Qualification> tbl_Job_Qualifications { get; set; }

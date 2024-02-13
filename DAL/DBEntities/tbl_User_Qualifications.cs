@@ -6,9 +6,9 @@ namespace DAL;
 
 public class tbl_User_Qualification
 {
-    [Key]
-    public string User_ID { get; set; }
 
+    public string User_ID { get; set; }
+    [Key]
     public string Name { get; set; }
     public string Institute { get; set; }
     public string Location { get; set; }

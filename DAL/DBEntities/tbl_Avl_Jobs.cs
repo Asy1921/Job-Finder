@@ -19,5 +19,5 @@ public class tbl_Avl_Job
 
 
     [ForeignKey("Coy_ID")]
-    public tbl_Companie Company { get; set; }
+    public tbl_Company Company { get; set; }
 }

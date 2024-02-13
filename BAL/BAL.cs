@@ -5,9 +5,19 @@ namespace BAL;
 
 public class BusinessOperations
 {
-    public string AddNewJob(Job NewJob)
+    public string AddNewJob(Job NewJob, List<string> Qualifications, List<string> Skills)
     {
         DBOperations Dbo = new();
+        List<tbl_Job_Qualification> QualsToSave = Qualifications.Select(x => new tbl_Job_Qualification()
+        {
+            Job_ID = NewJob.Job_ID,
+            QualificationRequired = x,
+        }).ToList();
+        List<tbl_Job_Skill> SkillsToSave = Qualifications.Select(x => new tbl_Job_Skill()
+        {
+            Job_ID = NewJob.Job_ID,
+            Skill_Name = x,
+        }).ToList();
         string status = Dbo.AddNewJob(new tbl_Avl_Job()
         {
             Job_ID = NewJob.Job_ID,
@@ -21,7 +31,7 @@ public class BusinessOperations
             Job_Description = NewJob.Job_Description,
             YearsOfExperienceRequired = NewJob.YearsOfExperienceRequired
 
-        }, new List<tbl_Job_Qualification>(), new List<tbl_Job_Skill>());
+        }, QualsToSave, SkillsToSave);
         return status;
     }
     public (List<Job>, string) GetAllJobs()

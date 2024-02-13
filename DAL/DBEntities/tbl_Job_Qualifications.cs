@@ -6,8 +6,9 @@ namespace DAL;
 
 public class tbl_Job_Qualification
 {
-    [Key]
+
     public string Job_ID { get; set; }
+    [Key]
     public string QualificationRequired { get; set; }
     public bool Required { get; set; }
 
