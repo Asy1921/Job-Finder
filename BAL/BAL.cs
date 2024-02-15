@@ -5,31 +5,32 @@ namespace BAL;
 
 public class BusinessOperations
 {
-    public string AddNewJob(Job NewJob, List<string> Qualifications, List<string> Skills)
+    public string AddNewJob(JobData Job)
     {
         DBOperations Dbo = new();
-        List<tbl_Job_Qualification> QualsToSave = Qualifications.Select(x => new tbl_Job_Qualification()
+        List<tbl_Job_Qualification> QualsToSave = Job.Qualifications_Required.Select(x => new tbl_Job_Qualification()
         {
-            Job_ID = NewJob.Job_ID,
-            QualificationRequired = x,
+            Job_ID = Job.JobBasicData.Job_ID,
+            QualificationRequired = x.Qualification_Name,
+            Required = x.Required
         }).ToList();
-        List<tbl_Job_Skill> SkillsToSave = Qualifications.Select(x => new tbl_Job_Skill()
+        List<tbl_Job_Skill> SkillsToSave = Job.Skills_Required.Select(x => new tbl_Job_Skill()
         {
-            Job_ID = NewJob.Job_ID,
-            Skill_Name = x,
+            Job_ID = Job.JobBasicData.Job_ID,
+            Skill_Name = x.Skill_Name,
+            Required = x.Required
         }).ToList();
         string status = Dbo.AddNewJob(new tbl_Avl_Job()
         {
-            Job_ID = NewJob.Job_ID,
-            Job_Name = NewJob.Job_Name,
-            JobOpen = NewJob.JobOpen,
-            CreatorUserID = NewJob.CreatorUserID,
-            AvailablePositions = NewJob.AvailablePositions,
-            FilledPositions = NewJob.FilledPositions,
-            Domain = NewJob.Domain,
-            Coy_ID = NewJob.Coy_ID,
-            Job_Description = NewJob.Job_Description,
-            YearsOfExperienceRequired = NewJob.YearsOfExperienceRequired
+            Job_ID = Job.JobBasicData.Job_ID,
+            Job_Name = Job.JobBasicData.Job_Name,
+            JobOpen = Job.JobBasicData.JobOpen,
+            AvailablePositions = Job.JobBasicData.AvailablePositions,
+            FilledPositions = Job.JobBasicData.FilledPositions,
+            Domain = Job.JobBasicData.Domain,
+            Coy_ID = Job.JobBasicData.Coy_ID,
+            Job_Description = Job.JobBasicData.Job_Description,
+            YearsOfExperienceRequired = Job.JobBasicData.YearsOfExperienceRequired
 
         }, QualsToSave, SkillsToSave);
         return status;
@@ -48,7 +49,7 @@ public class BusinessOperations
                     Job_ID = avl_Jobs.Job_ID,
                     Job_Name = avl_Jobs.Job_Name,
                     JobOpen = avl_Jobs.JobOpen,
-                    CreatorUserID = avl_Jobs.CreatorUserID,
+
                     AvailablePositions = avl_Jobs.AvailablePositions,
                     FilledPositions = avl_Jobs.FilledPositions,
                     Domain = avl_Jobs.Domain,

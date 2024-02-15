@@ -32,7 +32,7 @@ public class JobsController : Controller
     [HttpPost]
     [Route("[controller]/NewJob")]
 
-    public ActionResult<IEnumerable<string>> NewJob(Job Data)
+    public ActionResult<IEnumerable<string>> NewJob(JobData Data)
     {
 
         BusinessOperations BOps = new BusinessOperations();

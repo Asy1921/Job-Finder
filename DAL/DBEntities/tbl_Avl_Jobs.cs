@@ -7,7 +7,6 @@ public class tbl_Avl_Job
 {
     [Key]
     public string Job_ID { get; set; }
-    public string CreatorUserID { get; set; }
     public string Job_Name { get; set; }
     public string Coy_ID { get; set; }
     public string Job_Description { get; set; }
