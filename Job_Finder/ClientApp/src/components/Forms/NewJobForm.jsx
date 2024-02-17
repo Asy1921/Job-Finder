@@ -33,20 +33,20 @@ const JobForm = () => {
       </div>
 
       <div className="form-group">
-        <label>Job Open</label>
+        <label>Job Open (You can open it later)</label>
         <select {...register("jobOpen")}>
           <option value="Yes">Yes</option>
           <option value="No">No</option>
         </select>
       </div>
 
-      <div className="form-group">
+      {/* <div className="form-group">
         <label>Company ID</label>
         <input {...register("companyId", { required: true })} />
         {errors.companyId && (
           <span className="error-message">This field is required</span>
         )}
-      </div>
+      </div> */}
 
       <div className="form-group">
         <label>Available Opening</label>
