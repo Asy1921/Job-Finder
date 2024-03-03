@@ -8,6 +8,10 @@ public class BusinessOperations
     public string AddNewJob(Job Job)
     {
         DBOperations Dbo = new();
+        if (Job == null)
+        {
+            return "Failed to add job, job details were not provided";
+        }
         List<tbl_Job_Qualification> QualsToSave = Job.Qualifications_Required.Select(x => new tbl_Job_Qualification()
         {
             Job_ID = Job.Job_ID,
@@ -68,5 +72,14 @@ public class BusinessOperations
         }
         return (ReturnData, status);
 
+    }
+    public string AddUpdateUser(UserDetails UserData)
+    {
+        if (UserData == null)
+        {
+            return "User Not Saved because user data was not provided";
+        }
+
+        return "";
     }
 }

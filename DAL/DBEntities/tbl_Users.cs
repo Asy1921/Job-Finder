@@ -7,6 +7,8 @@ public class tbl_User
 {
     [Key]
     public string User_ID { get; set; }
+    public bool? IsHiring { get; set; }
+    public string? CompanyID { get; set; }
     public string? Name { get; set; }
     public string? HighestQualification { get; set; }
     public string? Domain { get; set; }
@@ -16,5 +18,6 @@ public class tbl_User
     public string? Email { get; set; }
     public string? Mobile { get; set; }
 
-
+    [ForeignKey("CompanyID")]
+    public tbl_Company Company { get; set; }
 }
