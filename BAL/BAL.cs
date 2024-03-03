@@ -5,32 +5,33 @@ namespace BAL;
 
 public class BusinessOperations
 {
-    public string AddNewJob(JobData Job)
+    public string AddNewJob(Job Job)
     {
         DBOperations Dbo = new();
         List<tbl_Job_Qualification> QualsToSave = Job.Qualifications_Required.Select(x => new tbl_Job_Qualification()
         {
-            Job_ID = Job.JobBasicData.Job_ID,
+            Job_ID = Job.Job_ID,
             QualificationRequired = x.Qualification_Name,
             Required = x.Required
         }).ToList();
         List<tbl_Job_Skill> SkillsToSave = Job.Skills_Required.Select(x => new tbl_Job_Skill()
         {
-            Job_ID = Job.JobBasicData.Job_ID,
+            Job_ID = Job.Job_ID,
             Skill_Name = x.Skill_Name,
             Required = x.Required
         }).ToList();
         string status = Dbo.AddNewJob(new tbl_Avl_Job()
         {
-            Job_ID = Job.JobBasicData.Job_ID,
-            Job_Name = Job.JobBasicData.Job_Name,
-            JobOpen = Job.JobBasicData.JobOpen,
-            AvailablePositions = Job.JobBasicData.AvailablePositions,
-            FilledPositions = Job.JobBasicData.FilledPositions,
-            Domain = Job.JobBasicData.Domain,
-            Coy_ID = Job.JobBasicData.Coy_ID,
-            Job_Description = Job.JobBasicData.Job_Description,
-            YearsOfExperienceRequired = Job.JobBasicData.YearsOfExperienceRequired
+            Job_ID = Job.Job_ID,
+            Job_Name = Job.Job_Name,
+            JobOpen = Job.JobOpen,
+            AvailablePositions = Job.AvailablePositions,
+            FilledPositions = Job.FilledPositions,
+            Domain = Job.Domain,
+            Coy_ID = Job.Coy_ID,
+            Job_Description = Job.Job_Description,
+            YearsOfExperienceRequired = Job.YearsOfExperienceRequired,
+
 
         }, QualsToSave, SkillsToSave);
         return status;

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import "./jobForm.css";
+import axios, { isCancel, AxiosError } from "axios";
+import { message } from "antd";
 
 const JobForm = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [qualifications, setQualifications] = useState([
-    { name: "", required: "Optional" },
+    { Qualification_Name: "", Required: false },
   ]);
-  const [skills, setSkills] = useState([{ name: "", required: "Optional" }]);
+  const [skills, setSkills] = useState([{ Skill_Name: "", Required: false }]);
 
   const {
     register,
@@ -14,13 +17,14 @@ const JobForm = () => {
     formState: { errors },
   } = useForm();
   const handleAddSkill = () => {
-    setSkills([...skills, { name: "", required: "Optional" }]);
+    setSkills([...skills, { Skill_Name: "", Required: false }]);
   };
 
   const handleSkillChange = (index, event) => {
-    const { value } = event.target;
+    let { value } = event.target;
+    value = value === "true" ? true : value === "false" ? false : value;
     const updatedSkills = [...skills];
-    updatedSkills[index].name = value;
+    updatedSkills[index][event.target.name] = value;
     setSkills(updatedSkills);
   };
 
@@ -30,13 +34,17 @@ const JobForm = () => {
     setSkills(updatedSkills);
   };
   const handleAddQualification = () => {
-    setQualifications([...qualifications, { name: "", required: "Optional" }]);
+    setQualifications([
+      ...qualifications,
+      { Qualification_Name: "", Required: false },
+    ]);
   };
 
   const handleQualificationChange = (index, event) => {
-    const { value } = event.target;
+    let { value } = event.target;
+    value = value === "true" ? true : value === "false" ? false : value;
     const updatedQualifications = [...qualifications];
-    updatedQualifications[index].name = value;
+    updatedQualifications[index][event.target.name] = value;
 
     setQualifications(updatedQualifications);
   };
@@ -47,11 +55,25 @@ const JobForm = () => {
     setQualifications(updatedQualifications);
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // Include qualifications and skills in the form data
-    data.qualifications = qualifications;
-    data.skills = skills;
+    data.Qualifications_Required = qualifications;
+    data.Skills_Required = skills;
+    data.CreatorUserID = "AdminTest1";
+    data.Coy_ID = "AdminTestCompany";
+    data.JobOpen = data.JobOpen === "true" ? true : false;
     console.log(data);
+    await axios
+      .post("/Jobs/NewJob", data)
+      .then((item) => {
+        message.success(item.data);
+      })
+      .catch((error) => {
+        message.error("There was an issue while saving new job.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
     // Submit logic here
   };
 
@@ -59,25 +81,25 @@ const JobForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className="job-form">
       <div className="form-group">
         <label>Job ID</label>
-        <input {...register("jobId", { required: true })} />
-        {errors.jobId && (
+        <input {...register("Job_ID", { required: true })} />
+        {errors.Job_ID && (
           <span className="error-message">This field is required</span>
         )}
       </div>
 
       <div className="form-group">
         <label>Job Name</label>
-        <input {...register("jobName", { required: true })} />
-        {errors.jobName && (
+        <input {...register("Job_Name", { required: true })} />
+        {errors.Job_Name && (
           <span className="error-message">This field is required</span>
         )}
       </div>
 
       <div className="form-group">
         <label>Job Open (You can open it later)</label>
-        <select {...register("jobOpen")}>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
+        <select {...register("JobOpen")}>
+          <option value={true}>Yes</option>
+          <option value={false}>No</option>
         </select>
       </div>
 
@@ -85,9 +107,9 @@ const JobForm = () => {
         <label>Available Opening</label>
         <input
           type="number"
-          {...register("availableOpening", { required: true, min: 0 })}
+          {...register("AvailablePositions", { required: true, min: 0 })}
         />
-        {errors.availableOpening && (
+        {errors.v && (
           <span className="error-message">
             This field is required and must be non-negative
           </span>
@@ -96,8 +118,8 @@ const JobForm = () => {
 
       <div className="form-group">
         <label>Domain</label>
-        <input {...register("domain", { required: true })} />
-        {errors.domain && (
+        <input {...register("Domain", { required: true })} />
+        {errors.Domain && (
           <span className="error-message">This field is required</span>
         )}
       </div>
@@ -129,18 +151,18 @@ const JobForm = () => {
           <div key={index} className="multi-row">
             <input
               type="text"
-              value={qualification.name}
+              value={qualification.Qualification_Name}
               onChange={(e) => handleQualificationChange(index, e)}
-              name={`qualifications[${index}].name`}
+              name={`Qualification_Name`}
               placeholder="Qualification"
             />
             <select
-              value={qualification.required}
+              value={qualification.Required}
               onChange={(e) => handleQualificationChange(index, e)}
-              name="required"
+              name="Required"
             >
-              <option value="Optional">Optional</option>
-              <option value="Mandatory">Mandatory</option>
+              <option value={false}>Optional</option>
+              <option value={true}>Mandatory</option>
             </select>
             <button
               type="button"
@@ -161,18 +183,18 @@ const JobForm = () => {
           <div key={index} className="multi-row">
             <input
               type="text"
-              value={skill.name}
+              value={skill.Skill_Name}
               onChange={(e) => handleSkillChange(index, e)}
-              name={`skills[${index}].name`}
+              name={`Skill_Name`}
               placeholder="Skill"
             />
             <select
-              value={skill.required}
+              value={skill.Required}
               onChange={(e) => handleSkillChange(index, e)}
-              name={`skills[${index}].required`}
+              name={`Required`}
             >
-              <option value="Optional">Optional</option>
-              <option value="Mandatory">Mandatory</option>
+              <option value={false}>Optional</option>
+              <option value={true}>Mandatory</option>
             </select>
             <button type="button" onClick={() => handleRemoveSkill(index)}>
               Remove

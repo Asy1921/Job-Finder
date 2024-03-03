@@ -12,6 +12,8 @@ public class Job
     public string Coy_ID { get; set; } = "";
     public string Job_Description { get; set; } = "";
     public int YearsOfExperienceRequired { get; set; } = 0;
+    public List<Job_Qualification_Required> Qualifications_Required { get; set; } = new();
+    public List<Job_Skill_Required> Skills_Required { get; set; } = new();
 
 }
 
@@ -25,9 +27,4 @@ public class Job_Skill_Required
     public string Skill_Name { get; set; } = "";
     public bool Required { get; set; } = false;
 }
-public class JobData
-{
-    public Job JobBasicData { get; set; } = new();
-    public List<Job_Qualification_Required> Qualifications_Required { get; set; } = new();
-    public List<Job_Skill_Required> Skills_Required { get; set; } = new();
-}
+

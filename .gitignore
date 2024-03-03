@@ -11,7 +11,7 @@
 *.sln.docstates
 InstallationCommands
 
-#Conn String
+#Conn String    
 DAL/ConnString.cs
 *.vscode
 launch.json

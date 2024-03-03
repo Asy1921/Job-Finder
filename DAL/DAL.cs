@@ -25,6 +25,7 @@ public class DBOperations
         catch (Exception Ex)
         {
             status += System.Reflection.MethodBase.GetCurrentMethod() + "\n\tError: " + Ex.Message + "\n\tInner Exception: " + Ex.InnerException;
+            Console.WriteLine(status);
         }
         return status;
     }
