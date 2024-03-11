@@ -79,7 +79,22 @@ public class BusinessOperations
         {
             return "User Not Saved because user data was not provided";
         }
+        tbl_User UserDetails = new()
+        {
+            User_ID = UserData.User_ID,
+            IsHiring = UserData.IsHiring,
+            CompanyID = UserData.CompanyID,
+            Name = UserData.Name,
+            HighestQualification = UserData.HighestQualification,
+            Joined_On = UserData.Joined_On ?? DateTime.UtcNow,
+            YearsOfExperience = UserData.YearsOfExperience,
+            Domain = UserData.Domain,
+            CurrentLocation = UserData.CurrentLocation,
+            Email = UserData.Email,
+            Mobile = UserData.Mobile
+        };
 
-        return "";
+
+        return new DBOperations().SaveUserDetails(UserDetails);
     }
 }

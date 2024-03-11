@@ -31,7 +31,7 @@ public class UserDetails
 {
 
     public string User_ID { get; set; } = "";
-    public bool? IsHiring { get; set; }
+    public bool IsHiring { get; set; } = false;
     public string? CompanyID { get; set; }
     public string? Name { get; set; }
     public string? HighestQualification { get; set; }
