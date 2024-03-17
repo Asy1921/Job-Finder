@@ -68,7 +68,7 @@ const UserForm = () => {
   }, []);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="form-container">
       {/* User ID */}
       <div>
         <label htmlFor="userId">User ID (Required, min. 6 chars):</label>

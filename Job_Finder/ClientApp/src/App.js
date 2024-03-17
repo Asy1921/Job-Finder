@@ -1,16 +1,15 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import JobForm from "./components/Forms/NewJobForm";
 import UserForm from "./components/Forms/UserForm";
+import Header from "./components/Layout/Header";
 
-export default class App extends Component {
-  static displayName = App.name;
+export default function App() {
+  const [userID, setUserID] = useState("");
 
-  render() {
-    return (
-      <>
-        <UserForm />
-        {/* <JobForm /> */}
-      </>
-    );
-  }
+  return (
+    <main>
+      <Header />
+      {userID === "" ? <UserForm /> : <JobForm />}
+    </main>
+  );
 }
