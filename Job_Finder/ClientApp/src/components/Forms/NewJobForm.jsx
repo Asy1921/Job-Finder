@@ -69,7 +69,7 @@ const JobForm = () => {
         message.success(item.data);
       })
       .catch((error) => {
-        message.error("There was an issue while saving new job.");
+        message.error("There was an issue while saving user.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -118,7 +118,10 @@ const JobForm = () => {
 
       <div className="form-group">
         <label>Domain</label>
-        <input {...register("Domain", { required: true })} />
+        <input
+          {...register("Domain", { required: true })}
+          placeholder="Enter Domain"
+        />
         {errors.Domain && (
           <span className="error-message">This field is required</span>
         )}

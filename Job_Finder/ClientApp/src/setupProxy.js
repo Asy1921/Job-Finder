@@ -7,7 +7,7 @@ const target = env.ASPNETCORE_HTTPS_PORT
   ? env.ASPNETCORE_URLS.split(";")[0]
   : "http://localhost:30001";
 
-const context = ["/weatherforecast", "/Jobs"];
+const context = ["/weatherforecast", "/Jobs", "/Home"];
 
 const onError = (err, req, resp, target) => {
   console.error(`${err.message}`);

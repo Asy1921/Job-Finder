@@ -57,3 +57,8 @@
 .button:hover {
   background-color: #45a049;
 }
+.align-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
