@@ -18,6 +18,7 @@ public class tbl_User
     public string? Email { get; set; }
     public string? Mobile { get; set; }
 
+
     [ForeignKey("CompanyID")]
     public tbl_Company Company { get; set; }
 }
