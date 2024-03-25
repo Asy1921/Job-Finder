@@ -52,7 +52,7 @@ public class DBOperations
         return (ReturnData, status);
     }
 
-    public string SaveUserDetails(tbl_User UserData)
+    public string SaveUserDetails(tbl_User UserData, tbl_User_Secrets UserSecrets)
     {
         string status;
         try
@@ -64,6 +64,15 @@ public class DBOperations
             else
             {
                 context.tbl_Users.Add(UserData);
+            }
+            context.SaveChanges();
+            if (context.tbl_User_Secrets.Where(x => x.User_ID == UserSecrets.User_ID).Any())
+            {
+                context.tbl_User_Secrets.Update(UserSecrets);
+            }
+            else
+            {
+                context.tbl_User_Secrets.Add(UserSecrets);
             }
             context.SaveChanges();
             status = $"User data for {UserData.Name} added successfully";

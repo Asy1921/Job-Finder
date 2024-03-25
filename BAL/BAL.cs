@@ -96,8 +96,13 @@ public class BusinessOperations
             Mobile = UserData.Mobile
         };
 
+        tbl_User_Secrets UserSecretsToSave = new()
+        {
+            User_ID = UserData.User_ID,
+            pw = getHash(UserData.Password)
+        };
 
-        return new DBOperations().SaveUserDetails(UserDetails);
+        return new DBOperations().SaveUserDetails(UserDetails, UserSecretsToSave);
     }
     private static string getHash(string text)
     {

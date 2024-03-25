@@ -14,6 +14,7 @@ const initialValues = {
   CurrentLocation: "",
   Email: "",
   Mobile: "",
+  Password: "",
 };
 
 // Replace with your API endpoint or logic to fetch domain and location options
@@ -30,9 +31,11 @@ const UserForm = () => {
 
   useEffect(() => {
     var headers = new Headers();
+    let apiKey = process.env.REACT_APP_Countries_API_Key;
+    console.log(apiKey);
     headers.append(
-      "M3FSNHZGZzhjQ0RxVHlrZmxZYzBZSnNhaE1VckJ2TmxKOFl0elpkZA==",
-      "API_KEY"
+      "X-CSCAPI-KEY",
+      "M3FSNHZGZzhjQ0RxVHlrZmxZYzBZSnNhaE1VckJ2TmxKOFl0elpkZA=="
     );
 
     var requestOptions = {
@@ -46,7 +49,7 @@ const UserForm = () => {
     )
       .then((response) => response.json())
       .then((data) => {
-        setCities(data.results.map((city) => city.city));
+        setCities(data.map((city) => city.name));
       });
   }, []);
 
@@ -73,6 +76,7 @@ const UserForm = () => {
   const onSubmit = async (data) => {
     console.log(data);
     data.IsHiring = data.IsHiring === "true" ? true : false;
+
     await axios
       .post("/Home/AddUpdateUser", data)
       .then((item) => {
@@ -219,6 +223,7 @@ const UserForm = () => {
           Password (Required, min. 8 chars, uppercase, lowercase, number):
         </label>
         <input
+          {...register("Password", { required: true })}
           onChange={handlePasswordChange}
           id="Password"
           type="password"
