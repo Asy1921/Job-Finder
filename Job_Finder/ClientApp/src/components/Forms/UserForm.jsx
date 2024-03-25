@@ -28,24 +28,47 @@ const UserForm = () => {
 
   const [cities, setCities] = useState([]);
 
-  // useEffect(() => {
-  //   var headers = new Headers();
-  //   headers.append("X-CSCAPI-KEY", "API_KEY");
+  useEffect(() => {
+    var headers = new Headers();
+    headers.append(
+      "M3FSNHZGZzhjQ0RxVHlrZmxZYzBZSnNhaE1VckJ2TmxKOFl0elpkZA==",
+      "API_KEY"
+    );
 
-  //   var requestOptions = {
-  //     method: "GET",
-  //     headers: headers,
-  //     redirect: "follow",
-  //   };
-  //   fetch(
-  //     "https://api.countrystatecity.in/v1/countries/IN/cities",
-  //     requestOptions
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setCities(data.results.map((city) => city.city));
-  //     });
-  // }, []);
+    var requestOptions = {
+      method: "GET",
+      headers: headers,
+      redirect: "follow",
+    };
+    fetch(
+      "https://api.countrystatecity.in/v1/countries/IN/cities",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setCities(data.results.map((city) => city.city));
+      });
+  }, []);
+
+  const [passwordError, setPasswordError] = useState("");
+
+  // Inside your component function
+  const validatePassword = (value) => {
+    if (!value) {
+      return "Password is required.";
+    } else if (value.length < 8) {
+      return "Password must be at least 8 characters long.";
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/.test(value)) {
+      return "Password must contain at least one uppercase letter, one lowercase letter, and one number.";
+    }
+    return "";
+  };
+
+  // Inside your component function
+  const handlePasswordChange = (e) => {
+    const error = validatePassword(e.target.value);
+    setPasswordError(error);
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -190,6 +213,18 @@ const UserForm = () => {
         {errors.Email && (
           <span className="error-message">This field is required</span>
         )}
+      </div>
+      <div>
+        <label htmlFor="Password">
+          Password (Required, min. 8 chars, uppercase, lowercase, number):
+        </label>
+        <input
+          onChange={handlePasswordChange}
+          id="Password"
+          type="password"
+          placeholder="Enter Password"
+        />
+        {passwordError && <span className="error">{passwordError}</span>}
       </div>
 
       <button type="submit" style={{ marginTop: "2vh" }}>
