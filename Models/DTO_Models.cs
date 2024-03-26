@@ -41,5 +41,7 @@ public class UserDetails
     public DateTime? Joined_On { get; set; }
     public string? Email { get; set; }
     public string? Mobile { get; set; }
-    public string Password { get; set; }
+    public string? Password { get; set; }
+    public string? OldPassword { get; set; }
+
 }

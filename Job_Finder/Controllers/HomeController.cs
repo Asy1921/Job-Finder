@@ -31,12 +31,12 @@ public class HomeController : Controller
     [HttpGet]
     [Route("[controller]/User")]
 
-    public ActionResult<string> GetUserDetails()
+    public ActionResult<string> GetUserDetails(string User_ID, string Password)
     {
 
 
         BusinessOperations BOps = new BusinessOperations();
-        (string ReturnData, string status) = ("test", "test");
+        (UserDetails ReturnData, string status) = (BOps.GetUserDetails(User_ID, Password), "User Not Found");
         var route = Request.Path.Value;
 
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using Models;
 namespace DAL;
 
 public class DBOperations
@@ -52,30 +52,36 @@ public class DBOperations
         return (ReturnData, status);
     }
 
-    public string SaveUserDetails(tbl_User UserData, tbl_User_Secrets UserSecrets)
+    public string SaveUserDetails(tbl_User UserData, tbl_User_Secrets UserSecrets, string oldPassword = "")
     {
         string status;
         try
         {
             if (context.tbl_Users.Where(x => x.User_ID == UserData.User_ID).Any())
             {
-                context.tbl_Users.Update(UserData);
+                if (context.tbl_User_Secrets.Where(x => x.User_ID == UserSecrets.User_ID && x.pw == oldPassword).Any())
+                {
+                    context.tbl_Users.Update(UserData);
+                    if (context.tbl_User_Secrets.Where(x => x.User_ID == UserSecrets.User_ID).Any())
+                    {
+                        context.tbl_User_Secrets.Update(UserSecrets);
+                    }
+                    status = $"User data for {UserData.Name} updated successfully";
+                }
+                else
+                {
+                    status = "Old Password does not match, cannot make updates to existing user.";
+                }
             }
             else
             {
                 context.tbl_Users.Add(UserData);
-            }
-            context.SaveChanges();
-            if (context.tbl_User_Secrets.Where(x => x.User_ID == UserSecrets.User_ID).Any())
-            {
-                context.tbl_User_Secrets.Update(UserSecrets);
-            }
-            else
-            {
                 context.tbl_User_Secrets.Add(UserSecrets);
+                status = $"User data for {UserData.Name} added successfully";
             }
             context.SaveChanges();
-            status = $"User data for {UserData.Name} added successfully";
+
+
         }
         catch (Exception Ex)
         {
@@ -87,6 +93,37 @@ public class DBOperations
 
     }
 
+    public UserDetails GetUser(string User_ID, string Password)
+    {
+        UserDetails User = new();
+        try
+        {
 
+            if (context.tbl_User_Secrets.Where(x => x.User_ID == User_ID && x.pw == Password).Any())
+            {
+                User = context.tbl_Users.Where(x => x.User_ID == User_ID).Select(x => new UserDetails()
+                {
+                    User_ID = x.User_ID,
+                    IsHiring = x.IsHiring ?? false,
+                    CompanyID = x.CompanyID,
+                    Name = x.Name,
+                    HighestQualification = x.HighestQualification,
+                    Joined_On = x.Joined_On,
+                    YearsOfExperience = x.YearsOfExperience,
+                    Domain = x.Domain,
+                    CurrentLocation = x.CurrentLocation,
+                    Email = x.Email,
+                    Mobile = x.Mobile
+                }).FirstOrDefault();
+            }
+        }
+        catch (Exception Ex)
+        {
+            Console.WriteLine(System.Reflection.MethodBase.GetCurrentMethod() + "\n\tError: " + Ex.Message + "\n\tInner Exception: " + Ex.InnerException);
+            //Log Error
+
+        }
+        return User;
+    }
 
 }

@@ -101,11 +101,19 @@ public class BusinessOperations
             User_ID = UserData.User_ID,
             pw = getHash(UserData.Password)
         };
-
-        return new DBOperations().SaveUserDetails(UserDetails, UserSecretsToSave);
+        string OldPassword = "";
+        if (UserData.OldPassword != "")
+        {
+            OldPassword = getHash(UserData.OldPassword);
+        }
+        return new DBOperations().SaveUserDetails(UserDetails, UserSecretsToSave, OldPassword);
     }
     private static string getHash(string text)
     {
+        if (string.IsNullOrWhiteSpace(text))
+        {
+            return "";
+        }
         // SHA512 is disposable by inheritance.  
         using (var sha256 = SHA256.Create())
         {
@@ -114,5 +122,12 @@ public class BusinessOperations
             // Get the hashed string.  
             return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
         }
+    }
+
+    public UserDetails GetUserDetails(string User_ID, string Password)
+    {
+        Password = getHash(Password);
+
+        return new DBOperations().GetUser(User_ID, Password);
     }
 }
